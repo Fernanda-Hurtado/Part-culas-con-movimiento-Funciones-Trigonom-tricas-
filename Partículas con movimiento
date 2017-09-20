@@ -9,7 +9,7 @@ void setup(){
 }
 
 void draw(){
-  background(255); 
+  background(0); 
  for(particula p : particulas){
    p.display();
    p.movimiento();
@@ -23,7 +23,10 @@ void mousePressed(){
 
 
 class particula{
-  float x,y,v,a,t;
+  float x,y,v,a,t,w;
+  //float dx,dy;
+  float px=sin(x);
+  float py= cos(y);
   color c;
 
 particula(float x_,float y_, float v_, float a_, float t_, color c_){
@@ -41,15 +44,16 @@ particula(float x_,float y_, float v_, float a_, float t_, color c_){
     a = random (TWO_PI);
     t = random (1,30);
     c = color (random (255), random (255), random(255));
+    w=random(10);
     
   }
   
   particula(float x_, float y_){
     x = x_;
     y = y_;
-    v = random (10);
+    v = random (3);
     a = random (TWO_PI);
-    t = random (1,30);
+    t = random (20,80);
     c = color (random (255), random (255), random(255));
     
   }
@@ -64,9 +68,17 @@ particula(float x_,float y_, float v_, float a_, float t_, color c_){
 }
 
  void movimiento(){
-   float mushu=TWO_PI/25;
-  x=x+sin((mushu)*random(-3,3));
-  y=y+sin((mushu)*random(-3,3));
-}
+   float sushu=TWO_PI/25;
+  x=x+sin(a)*v*sushu;
+  y=y+sin(a-90)*w*sushu;
+ 
+if((x<=0)||(x>=400)||(mousePressed)){
+      v*=-1;
+    }//cierre if
+if((y<=0)||(y>=400)||(mousePressed)){
+      w*=-1;
+    }//cierre if
+   
+ }//cierre movimiento
   
-}
+}  //cierre particula
